@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7509045165857537299}
   - component: {fileID: 2236127253369546866}
   - component: {fileID: 6443562765351313791}
+  - component: {fileID: 2600584683635597564}
   m_Layer: 0
   m_Name: Police
   m_TagString: Untagged
@@ -101,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12c7f04773c54ecb8d1640f07cb2bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastNode: {fileID: 0}
 --- !u!61 &6443562765351313791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -148,3 +148,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.92, y: 1.48}
   m_EdgeRadius: 0
+--- !u!50 &2600584683635597564
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954751760404755955}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

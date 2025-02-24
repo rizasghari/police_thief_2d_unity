@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         var spawnPosition = thiefStartNode.transform.position;
         spawnPosition.y += thiefPrefab.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        spawnPosition.z = 0;
         Instantiate(thiefPrefab, spawnPosition, Quaternion.identity);
         nodes.Find(node => node == thiefStartNode).SetIsOccupied(true);
     }
@@ -42,25 +43,34 @@ public class GameManager : MonoBehaviour
         {
             var spawnPosition = node.transform.position;
             spawnPosition.y += plicePrefab.GetComponent<SpriteRenderer>().bounds.size.y / 2;
-            var spawnedPolice =Instantiate(plicePrefab, spawnPosition, Quaternion.identity);
+            spawnPosition.z = 0;
+            var spawnedPolice = Instantiate(plicePrefab, spawnPosition, Quaternion.identity);
             Police police = spawnedPolice.GetComponent<Police>();
             police.Initialize(this, node);
             node.SetIsOccupied(true);
         }
     }
 
-    public bool GetNodeOnDropPosition(Vector3 dropPosition, out Node landedNode) {
+    public bool GetNodeOnDropPosition(Node currentNode, Collider2D policeCollider, out Node landedNode, Vector2 dropPosition)
+    {
         foreach (var node in nodes)
         {
-            var collider = node.GetComponent<CircleCollider2D>();
-            if (collider.bounds.Contains(dropPosition) && !node.IsOccupied)
+            if (node.TryGetComponent<Collider2D>(out var collider))
             {
-                landedNode = node; 
-                node.SetIsOccupied(true);
-                return true; 
+                if (!node.IsOccupied && collider.IsTouching(policeCollider) && CheckAreNeighbor(currentNode, node))
+                {
+                    landedNode = node;
+                    node.SetIsOccupied(true);
+                    return true;
+                }
             }
         }
         landedNode = null;
         return false;
+    }
+
+    private bool CheckAreNeighbor(Node origin, Node destination)
+    {
+        return graph.GetNeighbors(origin).Contains(destination);
     }
 }

@@ -5,10 +5,16 @@ public class Police : MonoBehaviour
     private Vector3 mousePositionOffset;
     private Node currentNode;
     private GameManager gameManager;
+    private SpriteRenderer spriteRenderer;
 
-    public void Initialize(GameManager gameManager, Node startNode) {
+    public void Initialize(GameManager gameManager, Node startNode)
+    {
         this.currentNode = startNode;
         this.gameManager = gameManager;
+    }
+
+    private void Awake() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void OnMouseDown()
@@ -21,16 +27,15 @@ public class Police : MonoBehaviour
         transform.position = GetMouseWorldPosition() - mousePositionOffset;
     }
 
-    private void OnMouseUp() {
+    private void OnMouseUp()
+    {
         Vector3 dropPosition = GetMouseWorldPosition() - mousePositionOffset;
-      
-        if (gameManager.GetNodeOnDropPosition(dropPosition, out Node landedNode))
+        if (gameManager.GetNodeOnDropPosition(currentNode, GetComponent<Collider2D>(), out Node landedNode, dropPosition))
         {
             currentNode.SetIsOccupied(false);
             currentNode = landedNode;
-        } else {
-            transform.position = currentNode.transform.position;
         }
+        SetPosition();
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -38,7 +43,10 @@ public class Police : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    public void SetCurrentNode(Node node) {
-        currentNode = node;
+    private void SetPosition()
+    {
+        var newPosition = currentNode.transform.position;
+        newPosition.y += spriteRenderer.bounds.size.y / 2;
+        transform.position = newPosition;
     }
 }

@@ -5,6 +5,7 @@ public class Node : MonoBehaviour
 {
     [SerializeField] private bool isExit;
     [SerializeField] private List<Node> neighbors;
+    [SerializeField] SpriteRenderer statusSr;
     private bool isOccupied;
 
     public bool IsExit => isExit;
