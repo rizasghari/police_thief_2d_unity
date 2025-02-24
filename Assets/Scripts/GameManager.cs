@@ -14,12 +14,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text gameResult;
     [SerializeField] private Color levelCompletedColor;
     [SerializeField] private Color gameOverColor;
+    [SerializeField] private AudioClip levelCompletedAudioClip;
+    [SerializeField] private AudioClip gameOverAudioClip;
+    private AudioSource audioSource;
     public bool IsPoliceTurn { get; private set; }
     public Graph Graph { get; private set; }
     public UnityEvent OnTurnChanged;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         Graph = new Graph();
         IsPoliceTurn = true;
     }
@@ -105,19 +109,31 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         Debug.Log("Level completed");
+
+        PlayAudio(levelCompletedAudioClip);
+
         gameResult.text = "Level completed";
         gameResult.color = levelCompletedColor;
         gameResult.gameObject.SetActive(true);
+
         Invoke("RestartLevel", 1.5f);
     }
 
     public void GameOver()
     {
         Debug.Log("Game Over");
+
+        PlayAudio(gameOverAudioClip);
+
         gameResult.text = "Game Over";
         gameResult.color = gameOverColor;
         gameResult.gameObject.SetActive(true);
+
         Invoke("RestartLevel", 1.5f);
+    }
+
+    private void PlayAudio(AudioClip audioClip) {
+        audioSource.PlayOneShot(audioClip);
     }
 
     private void RestartLevel()
