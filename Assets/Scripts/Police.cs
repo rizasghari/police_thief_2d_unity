@@ -20,17 +20,23 @@ public class Police : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (!gameManager.IsPoliceTurn) return;
+
         mousePositionOffset = GetMouseWorldPosition() - transform.position;
         gameManager.SetNodesAvailabilityIndicator(currentNode, true);
     }
 
     void OnMouseDrag()
     {
+        if (!gameManager.IsPoliceTurn) return;
+
         transform.position = GetMouseWorldPosition() - mousePositionOffset;
     }
 
     private void OnMouseUp()
     {
+        if (!gameManager.IsPoliceTurn) return;
+
         gameManager.SetNodesAvailabilityIndicator(currentNode, false);
 
         Vector3 dropPosition = GetMouseWorldPosition() - mousePositionOffset;
