@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -10,11 +11,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Node thiefStartNode;
     [SerializeField] private GameObject plicePrefab;
     [SerializeField] private GameObject thiefPrefab;
+    [SerializeField] private TMP_Text gameResult;
+    [SerializeField] private Color levelCompletedColor;
+    [SerializeField] private Color gameOverColor;
     public bool IsPoliceTurn { get; private set; }
     public Graph Graph { get; private set; }
     public UnityEvent OnTurnChanged;
 
-    private void Awake() {
+    private void Awake()
+    {
         Graph = new Graph();
         IsPoliceTurn = true;
     }
@@ -97,17 +102,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LevelCompleted() {
+    public void LevelCompleted()
+    {
         Debug.Log("Level completed");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameResult.text = "Level completed";
+        gameResult.color = levelCompletedColor;
+        gameResult.gameObject.SetActive(true);
+        Invoke("RestartLevel", 1.5f);
     }
 
-    public void GameOver() {
+    public void GameOver()
+    {
         Debug.Log("Game Over");
+        gameResult.text = "Game Over";
+        gameResult.color = gameOverColor;
+        gameResult.gameObject.SetActive(true);
+        Invoke("RestartLevel", 1.5f);
+    }
+
+    private void RestartLevel()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void OnThiefMoved() {
+    public void OnThiefMoved()
+    {
         IsPoliceTurn = true;
         OnTurnChanged?.Invoke();
     }
