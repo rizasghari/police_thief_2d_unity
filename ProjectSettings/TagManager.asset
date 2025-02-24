@@ -47,5 +47,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Thief
+    uniqueID: 67729301
+    locked: 0
+  - name: Police
+    uniqueID: 4005460919
+    locked: 0
   m_RenderingLayers:
   - Default

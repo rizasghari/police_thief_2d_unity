@@ -109,7 +109,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  statusSr: {fileID: 1280040592488972236}
+  availabilityIndicator: {fileID: 1280040592488972236}
+  spriteRenderer: {fileID: 1786721666898369640}
+  availableSprite: {fileID: 8995154407686431259, guid: d038d155a11d749688a6b1ad47068ae4, type: 3}
+  unavailableSprite: {fileID: -9055430995695571055, guid: 38be46efa3995438f91e63258b2fd6bc, type: 3}
+  normalNodeSprite: {fileID: 21300000, guid: 91503b5c1086e4476bafd857287908ce, type: 3}
+  exitNodeSprite: {fileID: -6490336443298463222, guid: f3593dc21d4be40b1a114c36076062f5, type: 3}
 --- !u!58 &9133110756539866043
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -157,12 +162,12 @@ GameObject:
   - component: {fileID: 5733075244759293554}
   - component: {fileID: 1280040592488972236}
   m_Layer: 0
-  m_Name: Status
+  m_Name: AvailabilityIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5733075244759293554
 Transform:
   m_ObjectHideFlags: 0

@@ -13,13 +13,15 @@ public class Police : MonoBehaviour
         this.gameManager = gameManager;
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void OnMouseDown()
     {
         mousePositionOffset = GetMouseWorldPosition() - transform.position;
+        gameManager.SetNodesAvailabilityIndicator(currentNode, true);
     }
 
     void OnMouseDrag()
@@ -29,6 +31,8 @@ public class Police : MonoBehaviour
 
     private void OnMouseUp()
     {
+        gameManager.SetNodesAvailabilityIndicator(currentNode, false);
+
         Vector3 dropPosition = GetMouseWorldPosition() - mousePositionOffset;
         if (gameManager.GetNodeOnDropPosition(currentNode, GetComponent<Collider2D>(), out Node landedNode, dropPosition))
         {

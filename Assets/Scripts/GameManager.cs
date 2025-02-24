@@ -73,4 +73,13 @@ public class GameManager : MonoBehaviour
     {
         return graph.GetNeighbors(origin).Contains(destination);
     }
+
+    public void SetNodesAvailabilityIndicator(Node currentNode, bool isDragging)
+    {
+        foreach (var node in nodes)
+        {
+            node.SetNodesAvailabilityIndicator(show: isDragging, isAvailable: CheckAreNeighbor(currentNode, node) && !node.IsOccupied);
+
+        }
+    }
 }
