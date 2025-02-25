@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Color gameOverColor;
     [SerializeField] private AudioClip levelCompletedAudioClip;
     [SerializeField] private AudioClip gameOverAudioClip;
+    [SerializeField] private AudioClip pickupAudioClip;
+    [SerializeField] private AudioClip putAudioClip;
+    [SerializeField] private ParticleSystem policePlacementParticle;
     private AudioSource audioSource;
     public bool IsPoliceTurn { get; private set; }
     public Graph Graph { get; private set; }
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
                     landedNode = node;
                     node.SetIsOccupied(true);
                     IsPoliceTurn = false;
+                    Instantiate(policePlacementParticle, node.transform.position, Quaternion.identity);
                     OnTurnChanged?.Invoke();
                     return true;
                 }
@@ -132,7 +136,8 @@ public class GameManager : MonoBehaviour
         Invoke("RestartLevel", 1.5f);
     }
 
-    private void PlayAudio(AudioClip audioClip) {
+    private void PlayAudio(AudioClip audioClip)
+    {
         audioSource.PlayOneShot(audioClip);
     }
 
@@ -141,9 +146,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void OnThiefMoved()
+    public void OnThiefMoved(Node currentNode)
     {
+        Instantiate(policePlacementParticle, currentNode.transform.position, Quaternion.identity);
+
         IsPoliceTurn = true;
         OnTurnChanged?.Invoke();
+    }
+
+    public void PlayPickupAudio()
+    {
+        PlayAudio(pickupAudioClip);
+    }
+
+    public void PlayPutAudio()
+    {
+        PlayAudio(putAudioClip);
     }
 }

@@ -45,7 +45,7 @@ public class Thief : MonoBehaviour
 
             SetPosition();
 
-            gameManager.OnThiefMoved();
+            gameManager.OnThiefMoved(currentNode);
 
             if (currentNode.IsExit)
             {
@@ -60,6 +60,8 @@ public class Thief : MonoBehaviour
 
     private void SetPosition()
     {
+        gameManager.PlayPutAudio();
+
         var newPosition = currentNode.transform.position;
         newPosition.y += spriteRenderer.bounds.size.y / 2;
         transform.position = newPosition;

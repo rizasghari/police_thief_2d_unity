@@ -22,6 +22,8 @@ public class Police : MonoBehaviour
     {
         if (!gameManager.IsPoliceTurn) return;
 
+        gameManager.PlayPickupAudio();
+
         mousePositionOffset = GetMouseWorldPosition() - transform.position;
         gameManager.SetNodesAvailabilityIndicator(currentNode, true);
     }
@@ -55,6 +57,8 @@ public class Police : MonoBehaviour
 
     private void SetPosition()
     {
+        gameManager.PlayPutAudio();
+
         var newPosition = currentNode.transform.position;
         newPosition.y += spriteRenderer.bounds.size.y / 2;
         transform.position = newPosition;
